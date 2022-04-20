@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/header.ejs', {title: 'BBS'}) %>
+<body>
+  <main class="ui container">
+    <h1 class="ui center aligned icon header">
+      <i class="chess board icon"></i>
+      EJS BBS ( <%= author %> )
+    </h1>
+    <button class="ui right floated button" style="margin: 10px 0;" onclick="location.href='/write'">Add</button>
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th>순번</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성시간</th>
+          <th>댓글수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% contensts.forEach((item) => { %>
+          <tr>
+            <td data-label="순번"><%= item.idx %></td>
+            <td data-label="제목"><a href="/bbs/<%= item.idx %>"><%= item.title %></a></td>
+            <td data-label="작성자"><%= item.author %></td>
+            <td data-label="작성시간"><%= item.publishedDate?.toDateString() %></td>
+            <td data-label="댓글수"><%= item.comments.length %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

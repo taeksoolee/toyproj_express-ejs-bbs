@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/header.ejs', {title: 'BBS'}) %>
+<body>
+  <main class="ui container">
+    <h1 class="ui center aligned icon header">
+      <i class="chess board icon"></i>
+      EJS BBS DETAIL
+    </h1>
+
+    <h2><%= content.title %> </h2>
+    <div style="float: right;"><%= content.publishedDate.toDateString() %></div>
+    <p><em><%= content.text %></em></p>
+
+    <div style="height: 50px;">
+      <div id="comment-btn" class="ui labeled button" tabindex="0">
+        <div class="ui blue button">
+          <i class="comment icon"></i> Comment
+        </div>
+        <a class="ui basic blue left pointing label">
+          <%= content.comments?.length %>
+        </a>
+      </div>
+    </div>
+    <form id="write-comment-form" action="/write/comments" method="post" class="ui form" style="display: none; margin: 20px 0;">
+      <div class="field">
+        <label>Comment Text</label>
+        <input type="text" name="text" placeholder="Please, Input Your Comment">
+      </div>
+      <input type="hidden" name="contentIdx" value="<%= content.idx %>" />
+      <button class="ui button">write comment</button>
+    </form>
+
+    <% if(content.comments.length === 0) { %>
+      <div style="text-align: center;">No comments exist</div>
+    <% } %>
+
+    <div>
+      <div class="ui items">
+        <% content.comments?.sort((a, b) => (b.idx - a.idx)).forEach((comment) => { %>
+          <div class="item" style="display: flex; align-items: center; gap: 5px;">
+            <strong><%= comment.text %></strong>
+            <div class="ui label"><%= comment.author %></div>
+            <div class="ui label"><%= comment.publishedDate.toDateString() %></div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const $writeCommentForm = $('#write-comment-form');
+
+    $('#comment-btn').on('click', function() {
+      if($writeCommentForm.css('display') === 'none') {
+        $writeCommentForm.css('display', 'block');
+      } else {
+        $writeCommentForm.css('display', 'none');
+      }
+    })
+  </script>
+</body>
+</html>

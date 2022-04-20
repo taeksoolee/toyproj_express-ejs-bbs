@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/header.ejs', {title: 'EJS BBS HOME'}) %>
+</head>
+<body>
+  <main class="ui container">
+    <h1 class="ui center aligned icon header">
+      <i class="chess board icon"></i>
+      EJS WRITE BBS
+    </h1>
+    <div class="ui container">
+      <form class="ui form" action="/write" method="post">
+        <% formNames.forEach((name) => { %>
+          <div class="field">
+            <label><%= name.toFirstUpperCase() %></label>
+            <input type="text" name="<%= name %>" placeholder="Please, Input Title">
+          </div>  
+        <% })%>
+        <button class="ui button" type="submit">Write</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

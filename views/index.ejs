@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/header.ejs', {title: 'EJS BBS HOME'}) %>
+</head>
+<body>
+  <main class="ui container">
+    <h1 class="ui center aligned icon header">
+      <i class="chess board icon"></i>
+      EJS BBS
+    </h1>
+    <form id="author-form" class="ui form" action="/author" method="post">
+      <div class="field">
+        <label>Author</label>
+        <input type="text" name="author" placeholder="First Name">
+      </div>
+      <input type="hidden" name="destination" value="<%= destination || '' %>" />
+      
+      <!-- <div class="field">
+        <div class="ui checkbox">
+          <input type="checkbox" tabindex="0" class="hidden">
+          <label>I agree to the Terms and Conditions</label>
+        </div>
+      </div> -->
+      <button class="ui button" type="submit">Submit</button>
+    </form>
+    <% if(error) { %>
+      <div style="margin-top: 20px;">
+        <div style="color: var(--red); text-align: center;">Error : <%= error %></div>
+        <div style="text-align: center;">Destination : <%= destination %></div>
+      </div>
+    <% } %>
+  </main>
+  <script>
+    const destination = '<%= destination %>';
+
+    $('#author-form').on('submit', function() {
+      if(this.author.value === '') {
+        alert('Please Input Value!');
+        return false;
+      }
+
+      return true;
+    });
+  </script>
+</body>
+</html>
